@@ -108,7 +108,7 @@ ashita.events.register('command', 'command_cb', function (e)
 
 			if next(tpalert.track_member) then
 				for k, v in pairs(tpalert.track_member) do
-					PPrint('['..k..']: '..tpalert.track_member[k].count);
+					PPrint('['..k..']');
 				end
 			else
 				PPrint('tracking list is empty');
