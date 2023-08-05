@@ -58,7 +58,13 @@ function checkPartyTP()
 			end
 		end
 	end
-end
+end;
+
+function onZone()
+	for k, v in pairs(tpalert.track_member) do
+		tpalert.track_member[k].count = 0;
+	end	
+end;
 
 ashita.events.register('unload', 'unload_cb', function ()
 	settings.save();
@@ -68,6 +74,12 @@ ashita.events.register('d3d_present', 'present_cb', function ()
 	local next = next
 	if next(tpalert.track_member) then
 		checkPartyTP();
+	end
+end);
+
+ashita.events.register('packet_in', 'packet_in_cb', function (e)
+   if (e.id == 0x0A or e.id == 0x0B) then
+        onZone();
 	end
 end);
 
