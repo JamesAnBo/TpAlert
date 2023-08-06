@@ -1,6 +1,6 @@
 addon.name      = 'tpalert';
 addon.author    = 'Aesk';
-addon.version   = '0.0.1';
+addon.version   = '0.0.2';
 addon.desc      = 'Alerts when party members get tp';
 addon.link      = 'https://github.com/JamesAnBo/tpalert';
 
@@ -45,7 +45,7 @@ function checkPartyTP()
 		if (isInZone) and (active == 1) and (serverId ~= 0) then
 			for k, v in pairs(tpalert.track_member) do
 				if (k == memberName) then
-					if (memberTP >= 1000) then
+					if (memberTP >= 1000) and (tpalert.track_member[k].count <= 1000) then
 						tpalert.track_member[k].count = (tpalert.track_member[k].count + 1)
 						if (tpalert.settings.playsound == true) and (tpalert.track_member[k].count <= 1) then
 							ashita.misc.play_sound(addon.path:append('\\sounds\\'):append(tpalert.settings.sound));
@@ -108,7 +108,7 @@ ashita.events.register('command', 'command_cb', function (e)
 
 			if next(tpalert.track_member) then
 				for k, v in pairs(tpalert.track_member) do
-					PPrint('['..k..']');
+					PPrint('['..k..']: '..tpalert.track_member[k].count);
 				end
 			else
 				PPrint('tracking list is empty');
